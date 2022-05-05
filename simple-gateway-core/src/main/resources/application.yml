@@ -1,0 +1,15 @@
+gateway:
+  enable: true
+  routes:
+    - id: r1
+      schema: https://www.baidu.com
+  selector:
+    s1:
+      routeId: r1
+      filters:
+        - id: gt-host
+        - id: gt-redirect
+
+logging:
+  level:
+    chain-log: debug

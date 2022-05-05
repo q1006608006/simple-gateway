@@ -1,0 +1,85 @@
+#网关框架的基础配置，有默认值的配置均可省略
+
+anicert:
+  #网关配置
+  gateway:
+    matches:
+      #网关匹配的路径，该路径以外的uri不会被网关框架拦截，默认为'/*'，支持模糊匹配（仅支持符号*,参考PatternMatchUtils.simpleMatch()方法)
+      - /*
+    #routeManager的bean名称，默认为GT_ROUTE_MANAGER
+    route-manager: GT_ROUTE_MANAGER
+    #路由配置
+    routes:
+      #路由ID
+      - id: route1
+        #转发地址
+        schema: http://www.foo-bar.com/prefix
+    #selector的独立配置文件存放路径，一个文件代表一个selector配置,文件名应与selectorId一致，支持yaml及properties格式
+    config-location: selector
+    #selector的相关配置
+    selector:
+      #selectorId
+      example1:
+        #是否使用独立配置文件，默认为false，本例对应文件为：classpath://selector/example1.yml
+        patch: true
+      example2:
+        #该selector的路由配置,未设置gt-redirect过滤器转发的url且未关闭转发的情况下（默认），必须指定route-id
+        route-id: route1
+        #匹配规则
+        matches:
+          - url:
+              #允许匹配的路径
+              - /exp2
+              #支持模糊匹配（仅支持符号*,参考PatternMatchUtils.simpleMatch()方法)
+              - /exp2/*
+              #排除以符号'-'开头的路径
+              - -/exp2/test
+            #支持的HTTP方法,不填表示全部支持
+            method:
+              - GET
+              - POST
+            header:
+              #包含test-head头的请求
+              - test-head
+              #包含foo头且值为'bar'的请求
+              - foo=bar
+              #排除包含foo1头但值为'bar1'的请求
+              - foo1!=bar1
+        #禁用core自带的转发过滤器开关，若指定了过滤器gt-redirect，该配置无效，默认值false
+        #若打开该开关，必须指定至少一个过滤器！！！
+        disableRedirect: false
+        filters:
+          #过滤器id，必须指定，默认与过滤器的beanName一致
+            #core包自带的转发过滤器，可以不显示配置（未配置会自动在过滤链尾部添加该过滤器）
+          - id: gt-redirect
+          #过滤器自定义参数，通过FilterMetadata获取，根据过滤器的实现自行定义即可
+            #手动指定要转发的url
+            url: http://foo-bar.com/redirect
+#          #设置bsn
+#          - id: bsn
+#          #签名过滤器
+#          - id: sign
+#          #统一格式返回
+#          - id: simResponse
+#          #头部参数校验
+#          - id: headerValid
+#          #并发控制
+#          - id: bulkhead
+#            #是否以每个uri作为隔离单位
+#            independent: true
+#            #最大并发数量
+#            maxConcurrentCalls: 500
+#            #最长等待时间（超时会直接返回）
+#            maxWaitDuration: 1000
+#          #防重放过滤器
+#          - id: antiRepeat
+#          #验签
+#          - id: verifySign
+#          #权限校验
+#          - id: authority
+#          #限流
+#          - id: flowLimit
+#          #转发前的相关配置（如：api路由设置、HTTP头部过滤）
+#          - id: redirect
+#          #core自带转发过滤器，不需要显示配置，默认添加在链尾
+#          - id: gt-redirect

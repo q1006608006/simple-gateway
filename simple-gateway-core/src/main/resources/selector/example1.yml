@@ -1,0 +1,11 @@
+matches:
+  - url: /exp1
+#默认
+#routeId: route1
+#不使用内置转发过滤器
+#disableRedirect: true
+filters:
+  #必须指定至少一个过滤器
+  - id: gt-redirect
+    set-header:
+      - "content-type: application/txt"
