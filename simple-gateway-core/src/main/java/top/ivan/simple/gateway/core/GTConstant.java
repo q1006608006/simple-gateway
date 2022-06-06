@@ -14,6 +14,7 @@ public class GTConstant {
 
     public static final String REDIRECT_FILTER_NAME = "gt-redirect";
     public static final String HOST_FILTER_NAME = "gt-host";
+    public static final String BULKHEAD_FILTER_NAME = "gt-bulkhead";
 
     public static final String REDIRECT_BODY = "GT_REDIRECT_BODY";
     public static final String REDIRECT_URL = "GT_REDIRECT_URL";

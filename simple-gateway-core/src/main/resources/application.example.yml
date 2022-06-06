@@ -55,14 +55,6 @@ anicert:
           #过滤器自定义参数，通过FilterMetadata获取，根据过滤器的实现自行定义即可
             #手动指定要转发的url
             url: http://foo-bar.com/redirect
-#          #设置bsn
-#          - id: bsn
-#          #签名过滤器
-#          - id: sign
-#          #统一格式返回
-#          - id: simResponse
-#          #头部参数校验
-#          - id: headerValid
 #          #并发控制
 #          - id: bulkhead
 #            #是否以每个uri作为隔离单位
@@ -71,15 +63,3 @@ anicert:
 #            maxConcurrentCalls: 500
 #            #最长等待时间（超时会直接返回）
 #            maxWaitDuration: 1000
-#          #防重放过滤器
-#          - id: antiRepeat
-#          #验签
-#          - id: verifySign
-#          #权限校验
-#          - id: authority
-#          #限流
-#          - id: flowLimit
-#          #转发前的相关配置（如：api路由设置、HTTP头部过滤）
-#          - id: redirect
-#          #core自带转发过滤器，不需要显示配置，默认添加在链尾
-#          - id: gt-redirect
